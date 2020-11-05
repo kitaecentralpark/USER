@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="274dp"
-        android:layout_height="460dp"
+        android:layout_width="280dp"
+        android:layout_height="416dp"
         android:layout_marginTop="1dp"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
@@ -59,8 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="41dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Name"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress" />
 
@@ -73,5 +73,13 @@
         android:text="Button"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
