@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="263dp"
-        android:layout_height="431dp"
+        android:layout_width="274dp"
+        android:layout_height="460dp"
         android:layout_marginTop="1dp"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
