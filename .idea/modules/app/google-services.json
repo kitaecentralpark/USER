@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "902951765204",
+    "firebase_url": "https://ktpark14118.firebaseio.com",
+    "project_id": "ktpark14118",
+    "storage_bucket": "ktpark14118.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902951765204:android:5e4c851cfe330666b1a741",
+        "android_client_info": {
+          "package_name": "com.company.KAUBicycle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902951765204-jlsbecp7p56mquhcqd9u7gto2qea3jrl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.KAUBicycle",
+            "certificate_hash": "6f6a7001ec35874d36b79a06b049271c87d3cf52"
+          }
+        },
+        {
+          "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx6q4DgML-K__k3zMB0h80TeaHCDuQesU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902951765204:android:4e91abb184207733b1a741",
+        "android_client_info": {
+          "package_name": "com.example.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902951765204-2ncfv52612ikv2so2ok121k536g447sd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user",
+            "certificate_hash": "155e5c26d8222b651bd35c0be5c1b81fc15e252f"
+          }
+        },
+        {
+          "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx6q4DgML-K__k3zMB0h80TeaHCDuQesU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902951765204:android:66cb0c8f8ce706dab1a741",
+        "android_client_info": {
+          "package_name": "com.gilbut.sharebicycle1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902951765204-o1hqcu7ulka6sl16jtis00uqt3fk301b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gilbut.sharebicycle1",
+            "certificate_hash": "6f6a7001ec35874d36b79a06b049271c87d3cf52"
+          }
+        },
+        {
+          "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx6q4DgML-K__k3zMB0h80TeaHCDuQesU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902951765204-qacn9vh71av3cocdgresjqg6a1nsrmd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
