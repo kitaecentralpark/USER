@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity
 {
     EditText editTextTextPersonName, editTextTextEmailAddress, editTextTextPassword;
     Button button3;
-    Switch switch1;
+    Switch switch2;
     DatabaseReference reff;
     User user; //만들어놓은 자바 클래스 활용
     @Override
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         editTextTextEmailAddress=findViewById(R.id.editTextTextEmailAddress);
         editTextTextPassword=findViewById(R.id.editTextTextPassword);
         button3=findViewById(R.id.button3);
-        switch1=findViewById(R.id.switch1);
+        switch2=findViewById(R.id.switch1);
 
         reff= FirebaseDatabase.getInstance().getReference().child("User");
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
                 insertuserdata();
             }
         });
-        switch1.setOnClickListener(new View.OnClickListener() {
+        switch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(
