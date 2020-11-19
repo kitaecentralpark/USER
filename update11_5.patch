@@ -1,0 +1,34 @@
+Index: app/src/main/java/com/example/user/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/user/MainActivity.java	(revision 27b63c40dbdb33054b1030949e0cb3cd078e35d8)
++++ app/src/main/java/com/example/user/MainActivity.java	(date 1604589121654)
+@@ -16,7 +16,7 @@
+ {
+     EditText editTextTextPersonName, editTextTextEmailAddress, editTextTextPassword;
+     Button button3;
+-    Switch switch2;
++    Switch switch1;
+     DatabaseReference reff;
+     User user; //만들어놓은 자바 클래스 활용
+     @Override
+@@ -28,7 +28,7 @@
+         editTextTextEmailAddress=findViewById(R.id.editTextTextEmailAddress);
+         editTextTextPassword=findViewById(R.id.editTextTextPassword);
+         button3=findViewById(R.id.button3);
+-        switch2=findViewById(R.id.switch1);
++        switch1=findViewById(R.id.switch1);
+ 
+         reff= FirebaseDatabase.getInstance().getReference().child("User");
+ 
+@@ -38,7 +38,7 @@
+                 insertuserdata();
+             }
+         });
+-        switch2.setOnClickListener(new View.OnClickListener() {
++        switch1.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(
