@@ -1,65 +1,108 @@
 package com.example.user;
 
-import android.content.Intent;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.Toast;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity
-{
-    EditText editTextTextPersonName, editTextTextEmailAddress, editTextTextPassword;
-    Button button3;
-    Switch switch2;
-    DatabaseReference reff;
-    User user; //만들어놓은 자바 클래스 활용
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth = null;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
+    private SignInButton signInButton3;
+
     @Override
-    protected void onCreate (Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editTextTextPersonName=findViewById(R.id.editTextTextPersonName);
-        editTextTextEmailAddress=findViewById(R.id.editTextTextEmailAddress);
-        editTextTextPassword=findViewById(R.id.editTextTextPassword);
-        button3=findViewById(R.id.button3);
-        switch2=findViewById(R.id.switch1);
+        signInButton3 = findViewById(R.id.signInButton);
 
-        reff= FirebaseDatabase.getInstance().getReference().child("User");
+        mAuth = FirebaseAuth.getInstance();
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(getApplication(), MapsActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        signInButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertuserdata();
+                signIn();
             }
         });
-        switch2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(
-                        getApplicationContext(), // 현재 화면의 제어권자
-                        MapsActivity.class); // 다음 넘어갈 클래스 지정
-                startActivity(intent); // 다음 화면으로 넘어간다
-
-            }
-        });
-
     }
-    private void  insertuserdata(){
 
-        String name = editTextTextPersonName.getText().toString();
-        String email = editTextTextEmailAddress.getText().toString();
-        String password = editTextTextPassword.getText().toString();
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 
-        User user = new User(name, email, password);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        reff.child("user").setValue(user);
-        Toast.makeText(MainActivity.this,"data inserted sucessfully",Toast.LENGTH_LONG).show();
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            updateUI(null);
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser user) { //update ui code here
+        if (user != null) {
+            Intent intent = new Intent( getApplicationContext(), MapsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
-
