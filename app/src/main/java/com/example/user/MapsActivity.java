@@ -2,9 +2,11 @@ package com.example.user;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mMap;
     private Button btnRevoke, btnLogout;
@@ -110,7 +112,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mAuth.getCurrentUser().delete();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_actions, menu) ;
 
+        return true ;
+    }
 
     @Override
     public void onClick(View v) {

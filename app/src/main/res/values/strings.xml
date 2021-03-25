@@ -3,7 +3,7 @@
     <string name="kausharebike">KAUSHAREBIKE</string>
     <string name="사용자등록">사용자등록</string>
     <string name="todo">TODO</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">자전거 대여</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
