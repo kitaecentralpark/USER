@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -55,7 +58,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mDatabase.getInstance().getReference().child("Gps");
+        databaseReference = mDatabase.getInstance().getReference().child("Gps/gps");
 
     }
 
@@ -84,7 +87,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 LatLng newLocation = new LatLng(lat, lng);
 
                 mMap.addMarker(new MarkerOptions().position(newLocation).title("plz"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation,18));
             }
 
             @Override
@@ -133,6 +136,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        //or switch문을 이용하면 될듯 하다.
 
+        if (id == R.id.menu_대여) {
+            Intent settingIntent = new Intent(this, MainActivity3.class);
+            startActivity(settingIntent);
+        }
+
+        if (id == R.id.menu_반납) {
+            Intent settingIntent = new Intent(this, MainActivity2.class);
+            startActivity(settingIntent);
+        }
+
+        if (id == R.id.menu_로그아웃) {
+            signOut();
+            finishAffinity();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }
