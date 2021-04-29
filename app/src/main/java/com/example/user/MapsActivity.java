@@ -142,7 +142,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //or switch문을 이용하면 될듯 하다.
 
         if (id == R.id.menu_대여) {
-            Intent settingIntent = new Intent(this, MainActivity3.class);
+            Intent settingIntent = new Intent(this, MainActivity4.class);
             startActivity(settingIntent);
 
             databaseReference = mDatabase.getInstance().getReference().child("Gps");
