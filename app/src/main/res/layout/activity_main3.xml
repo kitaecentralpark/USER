@@ -14,4 +14,11 @@
         android:layout_height="wrap_content"
         android:text="대여완료"
         android:textSize="40dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:text="확인" />
+
 </LinearLayout>

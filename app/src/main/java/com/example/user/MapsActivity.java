@@ -144,11 +144,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.menu_대여) {
             Intent settingIntent = new Intent(this, MainActivity3.class);
             startActivity(settingIntent);
+
+            databaseReference = mDatabase.getInstance().getReference().child("Gps");
+            DatabaseReference state = mDatabase.getReference("Gps/state");
+
+            state.setValue("1");
         }
 
         if (id == R.id.menu_반납) {
             Intent settingIntent = new Intent(this, MainActivity2.class);
             startActivity(settingIntent);
+
+            databaseReference = mDatabase.getInstance().getReference().child("Gps");
+            DatabaseReference state = mDatabase.getReference("Gps/state");
+
+            state.setValue("0");
+
         }
 
         if (id == R.id.menu_로그아웃) {
