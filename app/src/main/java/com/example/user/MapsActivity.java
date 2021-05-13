@@ -7,10 +7,12 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,6 +27,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 
@@ -37,6 +41,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ChildEventListener mChildEventListener;
     private String latitude;
     private String longitude;
+    private int co;
+    private int lim;
+    private Timer timer = new Timer();
+    private int countdown = 1;
+    private int count = 1;
+
     DatabaseReference databaseReference;
     FirebaseDatabase mDatabase;
 
@@ -54,12 +64,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnLogout.setOnClickListener(this);
         btnRevoke.setOnClickListener(this);
 
-
         mAuth = FirebaseAuth.getInstance();
-
         mDatabase = FirebaseDatabase.getInstance();
         databaseReference = mDatabase.getInstance().getReference().child("Gps/gps");
-
     }
 
     /**
@@ -86,7 +93,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 LatLng newLocation = new LatLng(lat, lng);
 
-                mMap.addMarker(new MarkerOptions().position(newLocation).title("plz"));
+                mMap.addMarker(new MarkerOptions().position(newLocation).title("자전"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation,18));
             }
 
@@ -115,6 +122,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAuth.getCurrentUser().delete();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_actions, menu) ;
@@ -136,19 +144,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //or switch문을 이용하면 될듯 하다.
 
         if (id == R.id.menu_대여) {
-            Intent settingIntent = new Intent(this, MainActivity4.class);
+            Intent settingIntent = new Intent(this, MainActivity3.class);
             startActivity(settingIntent);
 
             databaseReference = mDatabase.getInstance().getReference().child("Gps");
             DatabaseReference state = mDatabase.getReference("Gps/state");
 
             state.setValue("1");
+
         }
 
         if (id == R.id.menu_반납) {
@@ -171,3 +182,4 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 }
+
