@@ -1,25 +1,20 @@
 package com.example.user;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -28,12 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.Timer;
-import java.util.TimerTask;
 
 
-
-
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private Button btnRevoke, btnLogout;
@@ -59,14 +51,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        btnLogout = (Button) findViewById(R.id.btn_logout);
-        btnRevoke = (Button) findViewById(R.id.btn_revoke);
-        btnLogout.setOnClickListener(this);
-        btnRevoke.setOnClickListener(this);
+
+        GpsId name = new GpsId();
+        String na = name.getbicyclename();
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mDatabase.getInstance().getReference().child("Gps/gps");
+        databaseReference = mDatabase.getInstance().getReference().child(na+"/gps");
     }
 
     /**
@@ -83,18 +74,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         databaseReference.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevchildkey) {
 
+                GpsId name = new GpsId();
+                String na = name.getbicyclename();
+
                 String lati = dataSnapshot.child("latitude").getValue(String.class);
                 String lngi = dataSnapshot.child("longitude").getValue(String.class);
-                double lat = Double.parseDouble(lati);
-                double lng = Double.parseDouble(lngi);
+                double lat1 = Double.parseDouble(lati);
+                double lng1 = Double.parseDouble(lngi);
 
-                LatLng newLocation = new LatLng(lat, lng);
+                LatLng newLocation1 = new LatLng(lat1, lng1);
 
-                mMap.addMarker(new MarkerOptions().position(newLocation).title("자전"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation,18));
+                mMap.addMarker(new MarkerOptions().position(newLocation1).title(na));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation1, 18));
             }
 
             @Override
@@ -114,15 +109,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    private void revokeAccess() {
-        mAuth.getCurrentUser().delete();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_actions, menu) ;
@@ -130,51 +116,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true ;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_logout:
-                signOut();
-                finishAffinity();
-                break;
-            case R.id.btn_revoke:
-                revokeAccess();
-                finishAffinity();
-                break;
-        }
-    }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //or switch문을 이용하면 될듯 하다.
-
-        if (id == R.id.menu_대여) {
-            Intent settingIntent = new Intent(this, MainActivity3.class);
-            startActivity(settingIntent);
-
-            databaseReference = mDatabase.getInstance().getReference().child("Gps");
-            DatabaseReference state = mDatabase.getReference("Gps/state");
-
-            state.setValue("1");
-
-        }
 
         if (id == R.id.menu_반납) {
-            Intent settingIntent = new Intent(this, MainActivity2.class);
+            Intent settingIntent = new Intent(this, ReturnActivity.class);
             startActivity(settingIntent);
 
-            databaseReference = mDatabase.getInstance().getReference().child("Gps");
-            DatabaseReference state = mDatabase.getReference("Gps/state");
+            GpsId name = new GpsId();
+            String na = name.getbicyclename();
+
+            databaseReference = mDatabase.getInstance().getReference().child(na);
+            DatabaseReference state = mDatabase.getReference(na+"/state");
 
             state.setValue("0");
 
         }
 
         if (id == R.id.menu_로그아웃) {
-            signOut();
             finishAffinity();
         }
 

@@ -3,11 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_반납"
-        android:title="반납" />
-
-    <item
-        android:id="@+id/menu_로그아웃"
-       android:title="로그아웃" />
+        android:id="@+id/menu_대여"
+        android:title="대여" />
 
 </menu>
