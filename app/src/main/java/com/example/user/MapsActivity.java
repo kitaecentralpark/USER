@@ -25,9 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Timer;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap mMap1;
     private Button btnRevoke, btnLogout;
     private FirebaseAuth mAuth ;
     private ChildEventListener mChildEventListener;
@@ -52,7 +52,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        GpsId name = new GpsId();
+        bicycleId name = new bicycleId();
         String na = name.getbicyclename();
 
         mAuth = FirebaseAuth.getInstance();
@@ -71,14 +71,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        mMap1 = googleMap;
 
         databaseReference.addChildEventListener(new ChildEventListener() {
-
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevchildkey) {
 
-                GpsId name = new GpsId();
+                bicycleId name = new bicycleId();
                 String na = name.getbicyclename();
 
                 String lati = dataSnapshot.child("latitude").getValue(String.class);
@@ -88,8 +87,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 LatLng newLocation1 = new LatLng(lat1, lng1);
 
-                mMap.addMarker(new MarkerOptions().position(newLocation1).title(na));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation1, 18));
+                mMap1.addMarker(new MarkerOptions().position(newLocation1).title(na));
+                mMap1.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation1, 18));
             }
 
             @Override
@@ -125,7 +124,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Intent settingIntent = new Intent(this, ReturnActivity.class);
             startActivity(settingIntent);
 
-            GpsId name = new GpsId();
+            bicycleId name = new bicycleId();
             String na = name.getbicyclename();
 
             databaseReference = mDatabase.getInstance().getReference().child(na);

@@ -38,7 +38,8 @@
 
         <activity
             android:name=".MapsActivitybicycles"
-            android:label="@string/title_activity_maps_activitybicycles"></activity>
+            android:label="@string/title_activity_maps2"
+            android:theme="@style/AppTheme2" />
         <activity android:name=".RentalActivity" />
         <activity android:name=".ReturnActivity" />
         <activity android:name=".LoginActivity">

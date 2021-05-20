@@ -1,6 +1,6 @@
 package com.example.user;
 
-public class GpsId {
+public class bicycleId {
 
     public String getbicyclename() {
         return bicyclename;
