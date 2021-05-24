@@ -20,7 +20,10 @@ public class RentalActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                Intent settingIntent = getIntent();
+                String na = settingIntent.getStringExtra("name");
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("name", na);
                 startActivity(intent);
             }
         });

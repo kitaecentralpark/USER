@@ -52,12 +52,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        bicycleId name = new bicycleId();
-        String na = name.getbicyclename();
+        //bicycleId name = new bicycleId();
+        //String na = name.getbicyclename();
+        Intent intent = getIntent();
+        String na = intent.getStringExtra("name");
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mDatabase.getInstance().getReference().child(na+"/gps");
+        databaseReference = mDatabase.getInstance().getReference().child(na+"/gps"); //"Gps0/gps"
     }
 
     /**
@@ -77,8 +79,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevchildkey) {
 
-                bicycleId name = new bicycleId();
-                String na = name.getbicyclename();
+                //bicycleId name = new bicycleId();
+                //String na = name.getbicyclename();
+                Intent settingIntent = getIntent();
+                String na = settingIntent.getStringExtra("name");
 
                 String lati = dataSnapshot.child("latitude").getValue(String.class);
                 String lngi = dataSnapshot.child("longitude").getValue(String.class);
@@ -112,9 +116,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_actions, menu) ;
 
-        return true ;
+        return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -124,14 +127,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Intent settingIntent = new Intent(this, ReturnActivity.class);
             startActivity(settingIntent);
 
-            bicycleId name = new bicycleId();
-            String na = name.getbicyclename();
+            //bicycleId name = new bicycleId();
+            //String na = name.getbicyclename();
+            Intent intent = getIntent();
+            String na = intent.getStringExtra("name");
 
             databaseReference = mDatabase.getInstance().getReference().child(na);
             DatabaseReference state = mDatabase.getReference(na+"/state");
 
             state.setValue("0");
-
+            //현석이가 만든 코드
         }
 
         if (id == R.id.menu_로그아웃) {

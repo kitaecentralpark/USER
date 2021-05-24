@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,6 +53,7 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
     private FirebaseAuth mAuth ;
     private ChildEventListener mChildEventListener0;
     private ChildEventListener mChildEventListener1;
+    private GoogleMap.OnMarkerClickListener markerClickListener;
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReference0;
     private DatabaseReference databaseReference1;
@@ -59,6 +61,7 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
     private FirebaseDatabase mDatabase;
     private LatLng newLocation;
     private LatLng firstLocation;
+    private bicycleId GpsN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,21 +148,22 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
             public void onCancelled(DatabaseError databaseError) {
             }
         };
+        markerClickListener = new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String markerId = marker.getTitle();
+                GpsN = new bicycleId();
+                GpsN.setBicyclename(markerId);
+                return false;
+            }
+        };
 
         databaseReference0.addChildEventListener(mChildEventListener0);
         databaseReference1.addChildEventListener(mChildEventListener1);
+        mMap.setOnMarkerClickListener(markerClickListener);
 
     }
 
-    GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
-        @Override
-        public boolean onMarkerClick(Marker marker) {
-            String markerId = marker.getId();
-            bicycleId GpsN = new bicycleId();
-            GpsN.setbicyclename(markerId);
-            return false;
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -173,13 +177,13 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
         int id = item.getItemId();
 
         if (id == R.id.menu_대여) {
+
+            String Gps = GpsN.getbicyclename();
             Intent settingIntent = new Intent(this, RentalActivity.class);
+            settingIntent.putExtra("name", Gps);
             startActivity(settingIntent);
-
-            databaseReference0 = mDatabase.getInstance().getReference().child("Gps0");
-            state0 = mDatabase.getReference("/state");
-
-            state0.setValue("1");
+            state0 = mDatabase.getReference(Gps+"/state");
+            state0.setValue(Gps);
 
         }
 
