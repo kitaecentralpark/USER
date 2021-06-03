@@ -43,20 +43,33 @@ import java.util.TimerTask;
 public class MapsActivitybicycles extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String key0;
-    private String key1;
-    private String key;
-    private String Num;
-    private Marker bike0;
-    private Marker bike1;
 
-    private FirebaseAuth mAuth ;
+    private Marker bike0;
     private ChildEventListener mChildEventListener0;
-    private ChildEventListener mChildEventListener1;
-    private GoogleMap.OnMarkerClickListener markerClickListener;
-    private DatabaseReference databaseReference;
     private DatabaseReference databaseReference0;
+
+    private Marker bike1;
+    private ChildEventListener mChildEventListener1;
     private DatabaseReference databaseReference1;
+
+    private Marker bike2;
+    private ChildEventListener mChildEventListener2;
+    private DatabaseReference databaseReference2;
+
+    private Marker bike3;
+    private ChildEventListener mChildEventListener3;
+    private DatabaseReference databaseReference3;
+
+    private Marker bike4;
+    private ChildEventListener mChildEventListener4;
+    private DatabaseReference databaseReference4;
+
+    private Marker bike5;
+    private ChildEventListener mChildEventListener5;
+    private DatabaseReference databaseReference5;
+
+    private GoogleMap.OnMarkerClickListener markerClickListener;
+
     private DatabaseReference state0;
     private FirebaseDatabase mDatabase;
     private LatLng newLocation;
@@ -73,10 +86,13 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
         mapFragment.getMapAsync(this);
 
         firstLocation = new LatLng(0.0,0.0);
-        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         databaseReference0 = mDatabase.getReference().child("Gps0/gps");
         databaseReference1 = mDatabase.getReference().child("Gps1/gps");
+        databaseReference2 = mDatabase.getReference().child("Gps2/gps");
+        databaseReference3 = mDatabase.getReference().child("Gps3/gps");
+        databaseReference4 = mDatabase.getReference().child("Gps4/gps");
+        databaseReference5 = mDatabase.getReference().child("Gps5/gps");
     }
 
     @Override
@@ -85,6 +101,10 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
 
         bike0 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps0"));
         bike1 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps1"));
+        bike2 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps2"));
+        bike3 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps3"));
+        bike4 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps4"));
+        bike5 = mMap.addMarker(new MarkerOptions().position(firstLocation).title("Gps5"));
 
         mChildEventListener0 = new ChildEventListener() {
             @Override
@@ -148,6 +168,131 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
             public void onCancelled(DatabaseError databaseError) {
             }
         };
+        mChildEventListener2 = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String lat = dataSnapshot.child("latitude").getValue(String.class);
+                String lng = dataSnapshot.child("longitude").getValue(String.class);
+                double Lat = Double.parseDouble(lat);
+                double Lng = Double.parseDouble(lng);
+
+                newLocation = new LatLng(Lat, Lng);
+                bike2.setPosition(newLocation);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 7));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String key) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mChildEventListener3 = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String lat = dataSnapshot.child("latitude").getValue(String.class);
+                String lng = dataSnapshot.child("longitude").getValue(String.class);
+                double Lat = Double.parseDouble(lat);
+                double Lng = Double.parseDouble(lng);
+
+                newLocation = new LatLng(Lat, Lng);
+                bike3.setPosition(newLocation);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 7));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String key) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mChildEventListener4 = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String lat = dataSnapshot.child("latitude").getValue(String.class);
+                String lng = dataSnapshot.child("longitude").getValue(String.class);
+                double Lat = Double.parseDouble(lat);
+                double Lng = Double.parseDouble(lng);
+
+                newLocation = new LatLng(Lat, Lng);
+                bike4.setPosition(newLocation);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 7));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String key) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mChildEventListener5 = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String lat = dataSnapshot.child("latitude").getValue(String.class);
+                String lng = dataSnapshot.child("longitude").getValue(String.class);
+                double Lat = Double.parseDouble(lat);
+                double Lng = Double.parseDouble(lng);
+
+                newLocation = new LatLng(Lat, Lng);
+                bike5.setPosition(newLocation);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 7));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String key) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+
         markerClickListener = new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -160,6 +305,11 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
 
         databaseReference0.addChildEventListener(mChildEventListener0);
         databaseReference1.addChildEventListener(mChildEventListener1);
+        databaseReference2.addChildEventListener(mChildEventListener2);
+        databaseReference3.addChildEventListener(mChildEventListener3);
+        databaseReference4.addChildEventListener(mChildEventListener4);
+        databaseReference5.addChildEventListener(mChildEventListener5);
+
         mMap.setOnMarkerClickListener(markerClickListener);
 
     }
@@ -183,7 +333,7 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
             settingIntent.putExtra("name", Gps);
             startActivity(settingIntent);
             state0 = mDatabase.getReference(Gps+"/state");
-            state0.setValue(Gps);
+            state0.setValue("1");
 
         }
 
