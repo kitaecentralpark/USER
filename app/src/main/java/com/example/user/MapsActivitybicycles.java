@@ -116,7 +116,6 @@ public class MapsActivitybicycles extends AppCompatActivity implements OnMapRead
                 double Lng = Double.parseDouble(lng);
 
                 newLocation = new LatLng(Lat, Lng);
-
                 bike0.setPosition(newLocation);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 14));
             }

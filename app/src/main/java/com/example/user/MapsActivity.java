@@ -17,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -35,11 +36,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth ;
     private PolylineOptions polylineOptions;
     private ArrayList<LatLng> arrayPoints;
-
+    private LatLng startLatLng = new LatLng(0,0);
+    private LatLng endLatLng = new LatLng(0,0);
     DatabaseReference databaseReference;
     FirebaseDatabase mDatabase;
 
-
+    private void drawPath(){
+        Polyline polyline1 = mMap1.addPolyline(new PolylineOptions()
+        .clickable(true)
+        .add(
+                startLatLng,
+                endLatLng)
+        .color(Color.RED)
+        .width(20)
+        );
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +65,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         databaseReference = mDatabase.getInstance().getReference().child(na+"/gps"); //"Gps0/gps"
-        //databaseReference.removeValue();
+        databaseReference.removeValue();
     }
 
     @Override
@@ -65,10 +76,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevchildkey) {
 
-                polylineOptions = new PolylineOptions();
-                polylineOptions.color(Color.RED);
-                polylineOptions.width(5);
-
                 Intent settingIntent = getIntent();
                 String na = settingIntent.getStringExtra("name");
 
@@ -78,9 +85,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double lng1 = Double.parseDouble(lngi);
 
                 LatLng newLocation1 = new LatLng(lat1, lng1);
-                mMap1.addMarker(new MarkerOptions().position(newLocation1).title(na));
                 mMap1.moveCamera(CameraUpdateFactory.newLatLngZoom(newLocation1, 18));
-                mMap1.addPolyline(polylineOptions);
+                if(startLatLng.latitude==0&&startLatLng.longitude==0){
+                    startLatLng=newLocation1;
+                }
+                endLatLng = newLocation1;
+                drawPath();
+                startLatLng = newLocation1;
             }
 
             @Override
